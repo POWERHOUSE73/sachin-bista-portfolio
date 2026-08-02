@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>💋 Happy Kiss Day - Our Special Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Sacramento&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- GLOBAL FLOATING HEARTS -->
+  <div class="float-hearts" id="globalHearts"></div>
+
+  <!-- MUSIC BTN -->
+  <div id="musicBtn" onclick="toggleMusic()" title="Toggle music">🎵</div>
+
+  <!-- PROGRESS DOTS -->
+  <div id="progressDots"></div>
+
+  <!-- S0 – PASSWORD -->
+  <div id="s0" class="screen bg-night active">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:24px">
+      <div style="font-size:80px;animation:heartbeat 1s ease infinite">🔐</div>
+      <h1 class="title-md glow-text" style="margin-bottom:12px">Only For Her 💕</h1>
+      <p class="subtitle" style="margin-bottom:8px">Enter password to continue...</p>
+      <p style="color:rgba(255,180,200,0.5);font-size:0.85rem;max-width:280px">🎁 This experience was created especially for someone very special</p>
+      <input class="password-input" id="passwordInput" placeholder="••••••••••••" type="password" maxlength="30" autofocus>
+      <button class="btn btn-primary" onclick="checkPassword()">🔓 Unlock</button>
+      <p id="passError" style="color:#ff4d88;font-size:0.85rem;display:none">❌ Incorrect password. Try again! 💕</p>
+    </div>
+  </div>
+
+  <!-- S1 – LOADING -->
+  <div id="s1" class="screen bg-night">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center">
+      <div class="pulse-heart" style="margin-bottom:24px">❤️</div>
+      <h1 class="title-md glow-text" style="margin-bottom:12px">Our Special Journey</h1>
+      <p class="subtitle" style="margin-bottom:4px">Loading memories just for you...</p>
+      <div class="load-track"><div class="load-fill" id="loadFill"></div></div>
+      <p id="loadPct" style="color:rgba(255,200,220,0.6);font-size:0.9rem">0%</p>
+    </div>
+  </div>
+
+  <!-- S2 – LOCK SCREEN -->
+  <div id="s2" class="screen bg-night">
+    <div class="phone" id="phoneLock">
+      <div class="notch"></div>
+      <div class="time" id="lockTime">12:00</div>
+      <div class="date-str" id="lockDate">Saturday, Feb 13</div>
+      <div class="notif">
+        <div class="notif-title">💌 Special Message</div>
+        <div class="notif-msg">"I Have Something Special For You 💋"</div>
+      </div>
+      <div style="margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <p style="color:rgba(255,200,220,0.6);font-size:0.8rem;letter-spacing:1px">SWIPE TO UNLOCK</p>
+        <div class="unlock-btn" onclick="unlockPhone()" title="Unlock">🔓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S3 – NAME INPUT -->
+  <div id="s3" class="screen bg-pink">
+    <div style="position:relative;z-index:2;width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <div style="font-size:60px;animation:heartbeat 1.2s ease infinite">💕</div>
+      <h1 class="title-md" id="nameTitle">What Should I Call You?</h1>
+      <p class="subtitle">Tell me your beautiful name...</p>
+      <input class="love-input" id="nameInput" placeholder="Your name here..." maxlength="20" autofocus>
+      <button class="btn btn-primary" onclick="submitName()">Continue ❤️</button>
+    </div>
+  </div>
+
+  <!-- S4 – HEARTS GAME -->
+  <div id="s4" class="screen bg-night">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center">
+      <div style="font-size:40px;margin-bottom:12px;animation:heartbeat 1s ease infinite">💝</div>
+      <h1 class="title-md" style="margin-bottom:12px">Select 3 Hearts 💕</h1>
+      <p class="subtitle" id="heartCountTxt" style="margin-bottom:8px">Choose with your heart... 0 / 3</p>
+      <p style="color:rgba(255,200,220,0.5);font-size:0.75rem;margin-bottom:12px">🔑 Secret code will appear once selected</p>
+      <div class="heart-grid" id="heartGrid"></div>
+      <div class="secret-code-display" id="secretCodeDisplay" style="opacity:0;transition:all 0.5s">2102</div>
+    </div>
+  </div>
+
+  <!-- S5 – COMPATIBILITY -->
+  <div id="s5" class="screen bg-pink">
+    <div style="position:relative;z-index:2;width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <div style="font-size:48px">🔥💕</div>
+      <h1 class="title-md">Our Compatibility</h1>
+      <p class="subtitle" id="compatStatus">Analyzing our connection...</p>
+      <div style="width:100%;display:flex;flex-direction:column;gap:14px" id="compatBars"></div>
+    </div>
+  </div>
+
+  <!-- S6 – QUIZ -->
+  <div id="s6" class="screen bg-night">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center">
+      <div id="quizContent"></div>
+    </div>
+  </div>
+
+  <!-- S7 – CHAT -->
+  <div id="s7" class="screen bg-pink">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:16px">
+      <h2 class="title-md" style="font-size:clamp(1.8rem,5vw,2.8rem)">Our Intimate Story 💬</h2>
+      <div class="chat-window glass" id="chatWindow">
+        <div class="chat-header">
+          <div class="chat-avatar">💕</div>
+          <div>
+            <div style="color:#fff;font-weight:600;font-size:0.95rem" id="chatName">My Beautiful One ❤️</div>
+            <div style="color:rgba(255,200,220,0.6);font-size:0.75rem">Online · Thinking of you</div>
+          </div>
+        </div>
+        <div class="chat-msgs" id="chatMsgs"></div>
+      </div>
+      <button class="btn btn-ghost" id="chatNextBtn" onclick="nextScreen()" style="display:none;position:relative;z-index:2">Continue 💋</button>
+    </div>
+  </div>
+
+  <!-- S8 – SCRATCH CARD -->
+  <div id="s8" class="screen bg-night">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:16px">
+      <div style="font-size:40px">🎴</div>
+      <h1 class="title-md" style="font-size:clamp(1.6rem,4vw,2.4rem)">Scratch To Reveal 💌</h1>
+      <p class="subtitle">A secret message for you...</p>
+      <div style="position:relative;display:inline-block">
+        <div class="scratch-msg" id="scratchReveal" style="opacity:0">I Love You More Every Day ❤️</div>
+        <canvas id="scratchCanvas" width="300" height="180"></canvas>
+      </div>
+      <button class="btn btn-primary" id="scratchNextBtn" onclick="nextScreen()" style="display:none">Revealed! 💋</button>
+    </div>
+  </div>
+
+  <!-- S9 – KISS BUTTON -->
+  <div id="s9" class="screen bg-pink">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px">
+      <p class="subtitle" style="font-size:1rem">💋 Kiss Me & Show Your Love! 💋</p>
+      <span class="kiss-big" id="kissEmoji" onclick="sendKiss()">💋</span>
+      <div class="kiss-counter" id="kissCount">0</div>
+      <p style="color:rgba(255,200,220,0.6);font-size:0.85rem">Send 10 kisses to continue</p>
+      <p id="kissGoal" style="color:rgba(255,180,200,0.5);font-size:0.8rem">Every kiss shows how much I love you 💕</p>
+      <button class="btn btn-ghost" id="kissNextBtn" onclick="nextScreen()" style="display:none;margin-top:8px">Continue ❤️</button>
+    </div>
+  </div>
+
+  <!-- S10 – DO YOU LOVE ME -->
+  <div id="s10" class="screen bg-night">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center">
+      <div style="font-size:60px;margin-bottom:16px;animation:heartbeat 1s ease infinite">🥺</div>
+      <div class="love-q" id="loveMeQ">Will You Marry Me?</div>
+      <div class="love-btns" id="loveMeBtns" style="position:relative;height:60px;width:280px;display:flex;justify-content:center">
+        <button class="btn-yes" onclick="nextScreen()">YES! 💕</button>
+        <button class="btn-no" id="noBtn" onmouseenter="runAway()" ontouchstart="runAway()">NO 😢</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- S11 – TIMELINE -->
+  <div id="s11" class="screen bg-pink">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <h1 class="title-md" style="font-size:clamp(1.8rem,5vw,2.8rem)">Our Beautiful Journey 💕</h1>
+      <div class="timeline" id="tlWrapper">
+        <div class="tl-line"></div>
+      </div>
+      <button class="btn btn-primary" id="tlNext" onclick="nextScreen()" style="display:none;position:relative;z-index:2">Continue 💋</button>
+    </div>
+  </div>
+
+  <!-- S12 – GALLERY -->
+  <div id="s12" class="screen bg-night">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:16px">
+      <h1 class="title-md" style="font-size:clamp(1.8rem,5vw,2.8rem)">Our Beautiful Moments 📸</h1>
+      <p class="subtitle">Click photos to browse · (Add your photos here)</p>
+      <div id="galleryWrap" style="width:100%;max-width:320px"></div>
+      <div class="gallery-nav" id="galNav"></div>
+      <button class="btn btn-primary" onclick="nextScreen()" style="position:relative;z-index:2">Continue 💋</button>
+    </div>
+  </div>
+
+  <!-- S13 – NOTES -->
+  <div id="s13" class="screen bg-pink">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <h1 class="title-md">Love Notes 💌</h1>
+      <p class="subtitle">Little reminders of my love for you</p>
+      <div id="notesField" style="position:relative;width:min(380px,90vw);height:220px"></div>
+      <button class="btn btn-primary" onclick="nextScreen()">Read My Love Letter 💌</button>
+    </div>
+  </div>
+
+  <!-- S14 – LETTER -->
+  <div id="s14" class="screen bg-night">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center">
+      <div style="font-size:40px;margin-bottom:12px">💌</div>
+      <h2 class="title-md" style="margin-bottom:24px;font-size:clamp(1.8rem,5vw,2.8rem)">A Letter From My Heart</h2>
+      <div class="letter-wrap glass" id="letterContent"></div>
+      <button class="btn btn-primary" id="letterNext" onclick="nextScreen()" style="display:none;margin-top:20px;position:relative;z-index:2">Continue 💋</button>
+    </div>
+  </div>
+
+  <!-- S15 – AUDIO -->
+  <div id="s15" class="screen bg-pink">
+    <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <div style="font-size:60px">🎙️</div>
+      <h1 class="title-md" style="font-size:clamp(1.8rem,5vw,2.8rem)">A Message For You</h1>
+      <p class="subtitle">My voice, my heart, my love</p>
+      <div class="audio-player glass" id="audioPlayer">
+        <div class="wave-bars" id="waveBars"></div>
+        <p id="audioStatus" style="color:rgba(255,200,220,0.8);font-size:0.9rem">🎵 A romantic message waiting...</p>
+        <div class="progress-track" id="audioTrack">
+          <div class="progress-fill" id="audioProgress"></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center">
+          <button class="btn btn-primary" onclick="toggleAudio()" id="playBtn" style="padding:12px 28px">▶ Play Message</button>
+          <span style="color:rgba(255,200,220,0.6);font-size:0.85rem" id="audioTime">0:00</span>
+        </div>
+      </div>
+      <button class="btn btn-ghost" onclick="nextScreen()">Continue ❤️</button>
+    </div>
+  </div>
+
+  <!-- S16 – COUNTER -->
+  <div id="s16" class="screen bg-night">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <div style="font-size:48px">⏱️💕</div>
+      <h1 class="title-md" style="font-size:clamp(1.8rem,5vw,2.8rem)" id="counterTitle">Together Since</h1>
+      <p class="subtitle" id="counterDate">2080 Baishak 01 (Nepali New Year)</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:8px">
+        <div class="counter-card glass">
+          <div class="counter-num" id="cDays">0</div>
+          <div class="counter-lbl">Days</div>
+        </div>
+        <div class="counter-card glass">
+          <div class="counter-num" id="cHours">0</div>
+          <div class="counter-lbl">Hours</div>
+        </div>
+        <div class="counter-card glass">
+          <div class="counter-num" id="cMins">0</div>
+          <div class="counter-lbl">Minutes</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="nextScreen()" style="margin-top:8px">Open Your Gift 🎁</button>
+    </div>
+  </div>
+
+  <!-- S17 – GIFT -->
+  <div id="s17" class="screen bg-pink">
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <h1 class="title-md" style="font-size:clamp(1.8rem,5vw,2.8rem)">A Special Gift For You 🎁</h1>
+      <p class="subtitle">Tap the gift or choose a memory below</p>
+      <div class="gift-box" id="giftBox" onclick="openGift()">
+        <span class="gift-emoji" id="giftEmoji">🎁</span>
+      </div>
+      <p id="giftHint" style="color:rgba(255,200,220,0.6);font-size:0.9rem">Tap to open!</p>
+      <div class="gift-photos" id="giftPhotos" style="display:none">
+        <div class="gift-photo" onclick="showGiftPhoto(1)"><div>📷</div><div class="gift-photo-msg">Memory 1</div></div>
+        <div class="gift-photo" onclick="showGiftPhoto(2)"><div>💕</div><div class="gift-photo-msg">Memory 2</div></div>
+        <div class="gift-photo" onclick="showGiftPhoto(3)"><div>🌹</div><div class="gift-photo-msg">Memory 3</div></div>
+        <div class="gift-photo" onclick="showGiftPhoto(4)"><div>💋</div><div class="gift-photo-msg">Memory 4</div></div>
+      </div>
+      <button class="btn btn-primary" id="giftNext" onclick="nextScreen()" style="display:none">The Grand Finale 🎊</button>
+    </div>
+  </div>
+
+  <!-- S18 – FINALE -->
+  <div id="s18" class="screen bg-night">
+    <div class="finale-hearts" id="finaleHearts"></div>
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px">
+      <div class="finale-title">I Love You 💋</div>
+      <div style="font-size:clamp(2rem,6vw,3rem);animation:heartbeat 0.8s ease infinite">💋❤️</div>
+      <p style="font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.4rem);color:rgba(255,220,230,0.9);font-style:italic">I Want You. I Need You. Forever.</p>
+      <p class="subtitle glow-text" id="finaleName" style="font-size:clamp(1.1rem,3vw,1.5rem)"></p>
+      <p style="color:rgba(255,200,220,0.7);font-size:0.9rem;max-width:300px;margin-top:8px">Every day with you is a beautiful blessing. Let's make every day special together 💕</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:16px">
+        <button class="btn btn-primary" onclick="replay()">↺ Replay</button>
+        <button class="btn btn-ghost" onclick="shareApp()">Share 💌</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECRET PAGE -->
+  <div id="secretPage">
+    <div style="font-size:60px;animation:heartbeat 1s infinite">💖</div>
+    <h1 class="title-lg glow-text">Forever & Always</h1>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,220,230,0.8);font-size:1.1rem;max-width:300px">Some bonds are written in the stars, sealed with every heartbeat 🌟</p>
+    <button class="btn btn-primary" onclick="closeSecret()">Back ❤️</button>
+  </div>
+</div>
+
+<!-- AUDIO ELEMENT -->
+<audio id="bgAudio" preload="metadata"></audio>
+
+<!-- CONFIG & DATA FILES -->
+<script src="data/config.js"></script>
+<script src="data/quiz.js"></script>
+<script src="data/chat.js"></script>
+<script src="data/timeline.js"></script>
+<script src="data/gallery.js"></script>
+<script src="data/letter.js"></script>
+<script src="data/compat.js"></script>
+
+<!-- LOGIC FILES -->
+<script src="js/utils.js"></script>
+<script src="js/screens.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

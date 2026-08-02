@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sachin Bista | Creative Projects</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --card: #1f2937;
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        --accent: #22c55e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #020617, #111827 35%, #0f172a);
+        color: var(--text);
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 24px 80px;
+      }
+      .hero {
+        text-align: center;
+        padding: 40px 0 30px;
+      }
+      .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 4.5rem);
+        margin: 0 0 12px;
+        letter-spacing: 0.04em;
+      }
+      .hero p {
+        font-size: 1.1rem;
+        color: var(--muted);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .badge {
+        display: inline-block;
+        margin-bottom: 18px;
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.5);
+        color: #bbf7d0;
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .projects {
+        margin-top: 42px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+      .project {
+        background: rgba(17, 24, 39, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 16px;
+        padding: 22px 18px;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+      .project:hover {
+        transform: translateY(-4px);
+        border-color: rgba(34, 197, 94, 0.7);
+      }
+      .project h2 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+      }
+      .project a {
+        color: #86efac;
+        text-decoration: none;
+      }
+      .project a:hover {
+        text-decoration: underline;
+      }
+      .project p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      footer {
+        text-align: center;
+        margin-top: 56px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="hero">
+        <div class="badge">Portfolio Collection</div>
+        <h1>Sachin Bista</h1>
+        <p>
+          A curated collection of creative web experiments, interactive designs, mini games,
+          and frontend UI concepts developed under the name Sachin Bista.
+        </p>
+      </header>
+
+      <main class="projects">
+        <section class="project">
+          <h2>Games</h2>
+          <p><a href="./Drive-Mad-Game/">Drive Mad</a></p>
+          <p><a href="./Subway-Surfers-Game/">Subway Surfers</a></p>
+          <p><a href="./Tic_Tac_Toe_tcw/">Tic Tac Toe</a></p>
+        </section>
+
+        <section class="project">
+          <h2>Animations</h2>
+          <p><a href="./Galaxy-Animation/">Galaxy Animation</a></p>
+          <p><a href="./Animated_tcw_heart/">Animated Heart</a></p>
+          <p><a href="./Nike-Shoes-Animation/">Nike Shoes</a></p>
+        </section>
+
+        <section class="project">
+          <h2>Portfolio & Forms</h2>
+          <p><a href="./Responsive-portfolio-master/">Portfolio</a></p>
+          <p><a href="./modern-animated-login-form-jump/">Login Form</a></p>
+          <p><a href="./love/">Love Project</a></p>
+        </section>
+      </main>
+
+      <footer>
+        © 2026 Sachin Bista
+      </footer>
+    </div>
+  </body>
+</html>
