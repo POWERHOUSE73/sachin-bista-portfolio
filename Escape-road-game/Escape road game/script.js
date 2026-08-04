@@ -381,14 +381,14 @@ class Game {
 // --- Event Listeners ---
 document.addEventListener("keydown", (event) => {
   if (event.code === "Space") {
-    if (myGame.gameOver) {
-      myGame.restart();
+    if (window.myGame.gameOver) {
+      window.myGame.restart();
     } else {
-      myGame.player.jump();
+      window.myGame.player.jump();
     }
   }
 });
 
 // --- Start the game ---
-const myGame = new Game();
-myGame.gameLoop(0);
+window.myGame = new Game();
+window.myGame.gameLoop(0);
